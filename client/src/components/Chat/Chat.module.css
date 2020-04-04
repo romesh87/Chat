@@ -1,0 +1,87 @@
+.container {
+  width: 70%;
+  margin: 0 auto;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--clr-silver);
+  border-radius: 3px;
+  background-color: #eee;
+  padding: 2rem 0;
+}
+
+.chatContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  padding: 2rem;
+  height: 80vh;
+}
+
+.msgContainer {
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid var(--clr-silver);
+  width: 85%;
+  padding: 2rem;
+  overflow-y: scroll;
+}
+
+.msg {
+  width: 90%;
+  margin: 1.2rem auto;
+  background-color: var(--clr-clouds);
+  padding: 1rem 2rem;
+}
+
+.msgMeta {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.msgContent {
+  font-size: 1.6rem;
+}
+
+.users {
+  list-style: none;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+}
+
+.users li {
+  margin-top: 0.4rem;
+}
+
+.formContainer {
+  margin-left: 16.5%;
+}
+
+.inputMsg {
+  width: 80%;
+  height: 7rem;
+  padding: 1.5rem 2rem;
+  font-size: 1.6rem;
+}
+
+.btn {
+  height: 3rem;
+  width: 10%;
+  margin-left: 5%;
+  cursor: pointer;
+  border-radius: 100px;
+  background-color: var(--clr-peterriver);
+  color: white;
+  font-size: 1.6rem;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  border: 2px solid var(--clr-peterriver);
+  border-radius: 100px;
+  background-color: white;
+  color: var(--clr-peterriver);
+  outline: none;
+}
