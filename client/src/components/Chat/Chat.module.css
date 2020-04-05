@@ -82,8 +82,9 @@
 }
 
 .btn {
+  margin-top: 1rem;
   height: 3rem;
-  width: 10%;
+  width: 7rem;
   margin-left: 5%;
   cursor: pointer;
   border-radius: 100px;
