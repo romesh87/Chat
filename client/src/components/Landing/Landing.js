@@ -7,7 +7,7 @@ import classes from './Landing.module.css';
 const Landing = (props) => {
   const [formData, setFormData] = useState({
     username: '',
-    room: 'JavaScript',
+    room: 'React',
   });
 
   const onSubmitHandler = (e) => {
@@ -43,8 +43,9 @@ const Landing = (props) => {
               setFormData({ ...formData, [e.target.name]: e.target.value })
             }
           >
-            <option value='JavaScript'>JavaScript</option>
-            <option value='Python'>Python</option>
+            <option value='JavaScript'>React</option>
+            <option value='Vue'>Vue</option>
+            <option value='Angular'>Angular</option>
           </select>
         </div>
 

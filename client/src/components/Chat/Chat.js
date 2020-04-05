@@ -1,52 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import io from '../../../node_modules/socket.io-client/dist/socket.io';
 import PropTypes from 'prop-types';
 
 import classes from './Chat.module.css';
 
+const socket = io('http://localhost:5000', { autoConnect: false });
+
 const Chat = (props) => {
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState('');
   const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  const containerRef = useRef(null);
+
+  console.log('chat rendered');
 
   useEffect(() => {
-    console.log(props.appData);
+    socket.open();
+
+    socket.on('message', (msg) => {
+      setMessages((messages) => [...messages, msg]);
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    });
+
+    socket.on('roomUsers', (data) => {
+      setUsers(data.users);
+    });
+
+    socket.emit('joinRoom', {
+      username: props.appData.username,
+      room: props.appData.room,
+    });
+
+    return () => {
+      socket.off('message');
+      socket.off('roomUsers');
+
+      socket.close();
+    };
   }, []);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    setMessages(
-      messages.concat({
-        meta: {
-          datetime: '4/4/2020',
-          username: 'John',
-        },
-        content: formData,
-      })
-    );
+    socket.emit('chatMessage', formData);
+    // Scroll down
+    //containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    containerRef.current.scrollTop = containerRef.current.scrollHeight;
+
+    setFormData('');
   };
 
   return (
     <div className={classes.container}>
+      <h2 className={classes.heading}>ChatApp</h2>
       <div className={classes.chatContainer}>
         <div className={classes.sidebar}>
-          <div className={classes.roomName}>
+          <div className={classes.roomname}>
             <h2>{props.appData.room}</h2>
           </div>
           <ul className={classes.users}>
-            <li>John</li>
-            <li>Neo</li>
-            <li>Lisa</li>
+            {users &&
+              users.map((user, index) => <li key={index}>{user.username}</li>)}
           </ul>
         </div>
-        <div className={classes.msgContainer}>
-          {messages.map((msg, index) => (
-            <div key={index} className={classes.msg}>
-              <div className={classes.msgMeta}>
-                {`${msg.meta.username} said on ${msg.meta.datetime}:`}
+        <div className={classes.msgContainer} ref={containerRef}>
+          {messages &&
+            messages.map((msg, index) => (
+              <div key={index} className={classes.msg}>
+                <div className={classes.msgMeta}>
+                  {`${msg.username} said on ${msg.time}:`}
+                </div>
+                <div className={classes.msgContent}>{msg.text}</div>
               </div>
-              <div className={classes.msgContent}>{msg.content}</div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <div className={classes.formContainer}>

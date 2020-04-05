@@ -8,6 +8,20 @@
   padding: 2rem 0;
 }
 
+.heading {
+  color: var(--clr-peterriver);
+  font-weight: 400;
+
+  font-size: 2rem;
+  width: 20%;
+  margin-left: 50%;
+  transition: all 0.3s ease-out;
+}
+
+.heading:hover {
+  transform: scale(1.05);
+}
+
 .chatContainer {
   width: 100%;
   display: flex;
@@ -40,6 +54,10 @@
 
 .msgContent {
   font-size: 1.6rem;
+}
+
+.roomname {
+  font-size: 1.2rem;
 }
 
 .users {
